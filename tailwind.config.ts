@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for job status
+				status: {
+					applied: '#3b82f6',     // Blue
+					interviewing: '#8b5cf6', // Purple
+					offer: '#10b981',       // Green
+					rejected: '#ef4444',    // Red
+					ghosted: '#6b7280',     // Gray
 				}
 			},
 			borderRadius: {
