@@ -22,6 +22,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import UpdateApplicationDialog from '@/components/applications/UpdateApplicationDialog';
+import InterviewPrepSection from '@/components/applications/InterviewPrepSection';
 
 const ApplicationDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -286,6 +287,8 @@ const ApplicationDetail: React.FC = () => {
               )}
             </CardContent>
           </Card>
+          
+          <InterviewPrepSection companyName={application.companyName} />
         </div>
       </div>
       
