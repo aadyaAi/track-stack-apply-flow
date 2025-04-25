@@ -38,12 +38,6 @@ const Applications: React.FC = () => {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">Applications</h1>
-        <Button asChild>
-          <Link to="/add-application" className="flex items-center">
-            <Plus className="h-4 w-4 mr-2" />
-            Add Job
-          </Link>
-        </Button>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4">
