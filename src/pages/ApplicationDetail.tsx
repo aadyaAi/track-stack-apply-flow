@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useApplications } from '@/context/ApplicationContext';
@@ -22,6 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import UpdateApplicationDialog from '@/components/applications/UpdateApplicationDialog';
 
 const ApplicationDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,10 +29,10 @@ const ApplicationDetail: React.FC = () => {
   const { applications, updateApplication, updateStatus, deleteApplication } = useApplications();
   const [isEditingNotes, setIsEditingNotes] = useState(false);
   const [notes, setNotes] = useState('');
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   
   const application = applications.find(app => app.id === id);
   
-  // If application not found
   if (!application) {
     return (
       <div className="p-6 text-center">
@@ -45,7 +45,6 @@ const ApplicationDetail: React.FC = () => {
     );
   }
   
-  // Initialize notes from application
   React.useEffect(() => {
     if (application?.notes) {
       setNotes(application.notes);
@@ -80,6 +79,14 @@ const ApplicationDetail: React.FC = () => {
               currentStatus={application.status} 
               onChange={(status) => updateStatus(application.id, status)} 
             />
+            
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={() => setIsEditDialogOpen(true)}
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
             
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -281,6 +288,12 @@ const ApplicationDetail: React.FC = () => {
           </Card>
         </div>
       </div>
+      
+      <UpdateApplicationDialog
+        application={application}
+        isOpen={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+      />
     </div>
   );
 };
