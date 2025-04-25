@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { JobApplication, ApplicationStatus, TimelineEvent } from '../types';
 import { toast } from '@/hooks/use-toast';
@@ -15,30 +14,43 @@ interface ApplicationContextType {
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(undefined);
 
+const LOCAL_STORAGE_KEY = 'jobApplications';
+
 export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Load data from localStorage on mount
   useEffect(() => {
-    const savedApplications = localStorage.getItem('jobApplications');
-    if (savedApplications) {
-      try {
-        setApplications(JSON.parse(savedApplications));
-      } catch (error) {
-        console.error('Failed to parse saved applications:', error);
-        toast({
-          title: "Error",
-          description: "Failed to load saved applications.",
-          variant: "destructive"
-        });
+    const loadSavedData = () => {
+      const savedApplications = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (savedApplications) {
+        try {
+          const parsed = JSON.parse(savedApplications);
+          setApplications(parsed);
+          console.log('Loaded applications from localStorage:', parsed);
+        } catch (error) {
+          console.error('Failed to parse saved applications:', error);
+          toast({
+            title: "Error",
+            description: "Failed to load saved applications.",
+            variant: "destructive"
+          });
+        }
       }
-    }
+      setIsInitialized(true);
+    };
+    
+    loadSavedData();
   }, []);
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('jobApplications', JSON.stringify(applications));
-  }, [applications]);
+    if (isInitialized) {
+      console.log('Saving applications to localStorage:', applications);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(applications));
+    }
+  }, [applications, isInitialized]);
 
   const addApplication = (application: Omit<JobApplication, 'id' | 'lastUpdated'>) => {
     const newApplication: JobApplication = {
@@ -121,7 +133,6 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     setApplications(prev => 
       prev.map(app => {
         if (app.id === id) {
-          // Create a timeline event for the status change
           const newEvent: TimelineEvent = {
             id: crypto.randomUUID(),
             date: new Date().toISOString(),

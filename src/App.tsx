@@ -10,16 +10,17 @@ import Applications from "./pages/Applications";
 import AddApplication from "./pages/AddApplication";
 import ApplicationDetail from "./pages/ApplicationDetail";
 import { ApplicationProvider } from "./context/ApplicationContext";
+import Navbar from "./components/layout/Navbar";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ApplicationProvider>
+      <ApplicationProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/applications" element={
@@ -42,12 +43,10 @@ const App = () => (
             } />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </ApplicationProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </ApplicationProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
-
-import Navbar from "./components/layout/Navbar";
 
 export default App;
