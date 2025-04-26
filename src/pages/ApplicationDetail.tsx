@@ -7,7 +7,6 @@ import { formatDate } from '@/utils/format-date';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import TimelineItem from '@/components/applications/TimelineItem';
-import TimelineVisualization from '@/components/applications/TimelineVisualization';
 import AddEventForm from '@/components/applications/AddEventForm';
 import StatusSelector from '@/components/applications/StatusSelector';
 import { ArrowLeft, Link as LinkIcon, Calendar, Paperclip, Edit, Trash } from 'lucide-react';
@@ -272,20 +271,17 @@ const ApplicationDetail: React.FC = () => {
             </CardHeader>
             <CardContent>
               {application.timeline.length > 0 ? (
-                <>
-                  <TimelineVisualization events={application.timeline} />
-                  <div className="space-y-1 mt-6">
-                    {[...application.timeline]
-                      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                      .map((event) => (
-                        <TimelineItem 
-                          key={event.id} 
-                          event={event} 
-                          applicationId={application.id} 
-                        />
-                      ))}
-                  </div>
-                </>
+                <div className="space-y-1">
+                  {[...application.timeline]
+                    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                    .map((event) => (
+                      <TimelineItem 
+                        key={event.id} 
+                        event={event} 
+                        applicationId={application.id} 
+                      />
+                    ))}
+                </div>
               ) : (
                 <p className="text-gray-500">No timeline events yet.</p>
               )}
