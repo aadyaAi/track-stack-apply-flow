@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Applications from "./pages/Applications";
 import AddApplication from "./pages/AddApplication";
 import ApplicationDetail from "./pages/ApplicationDetail";
+import Jobs from "./pages/Jobs";
 import { ApplicationProvider } from "./context/ApplicationContext";
 import Navbar from "./components/layout/Navbar";
 
@@ -41,6 +41,7 @@ const App = () => (
                 <ApplicationDetail />
               </div>
             } />
+            <Route path="/jobs" element={<Jobs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
