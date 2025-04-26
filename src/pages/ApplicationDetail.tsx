@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import UpdateApplicationDialog from '@/components/applications/UpdateApplicationDialog';
 import InterviewPrepSection from '@/components/applications/InterviewPrepSection';
+import FilePreview from '@/components/applications/FilePreview';
 
 const ApplicationDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -293,6 +294,7 @@ const ApplicationDetail: React.FC = () => {
                         <span className="text-sm truncate max-w-[150px]">{application.resumeName || "Resume"}</span>
                       </div>
                       <div className="flex gap-1">
+                        <FilePreview fileUrl={application.resumeUrl} fileName={application.resumeName || "Resume"} />
                         <Button 
                           variant="ghost" 
                           size="icon"
@@ -342,6 +344,7 @@ const ApplicationDetail: React.FC = () => {
                         <span className="text-sm truncate max-w-[150px]">{application.coverLetterName || "Cover letter"}</span>
                       </div>
                       <div className="flex gap-1">
+                        <FilePreview fileUrl={application.coverLetterUrl} fileName={application.coverLetterName || "Cover letter"} />
                         <Button 
                           variant="ghost" 
                           size="icon"
