@@ -2,7 +2,7 @@
 import React from 'react';
 import { ApplicationStatus } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Check, ChevronDown, Party } from 'lucide-react';
+import { Check, ChevronDown, PartyPopper } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ import { getStatusColor, getStatusTextColor } from '@/utils/status-utils';
 interface StatusSelectorProps {
   currentStatus: ApplicationStatus;
   onChange: (status: ApplicationStatus) => void;
+  showConfetti?: boolean;
 }
 
 const statuses: ApplicationStatus[] = [
