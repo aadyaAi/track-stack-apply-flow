@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,11 +11,8 @@ import AddApplication from "./pages/AddApplication";
 import ApplicationDetail from "./pages/ApplicationDetail";
 import { ApplicationProvider } from "./context/ApplicationContext";
 import Navbar from "./components/layout/Navbar";
-import ExploreJobs from './pages/ExploreJobs'; // Added import
 
 const queryClient = new QueryClient();
-
-import Dashboard from './pages/Dashboard';
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -24,15 +22,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />}>
-              <Route index element={<Dashboard />} />
-              <Route path="applications" element={<Applications />} />
-              <Route path="applications/add" element={<AddApplication />} />
-              <Route path="applications/:id" element={<ApplicationDetail />} />
-              <Route path="explore" element={<ExploreJobs />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-            {/* <Route path="/applications" element={
+            <Route path="/" element={<Index />} />
+            <Route path="/applications" element={
               <div className="min-h-screen bg-gray-50">
                 <Navbar />
                 <Applications />
@@ -49,8 +40,7 @@ const App = () => (
                 <Navbar />
                 <ApplicationDetail />
               </div>
-            } /> */}
-            {/* Commented out redundant routes as they are now nested under / */}
+            } />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
