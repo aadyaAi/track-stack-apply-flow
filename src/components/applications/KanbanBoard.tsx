@@ -20,6 +20,14 @@ const KanbanBoard: React.FC = () => {
     const newStatus = destination.droppableId as ApplicationStatus;
     
     updateApplication(draggableId, { status: newStatus });
+
+    // Show confetti when status changes to Offer
+    if (newStatus === 'Offer') {
+      const statusSelector = document.createElement('div');
+      statusSelector.setAttribute('data-show-confetti', 'true');
+      document.body.appendChild(statusSelector);
+      setTimeout(() => document.body.removeChild(statusSelector), 2000);
+    }
   };
 
   const getApplicationsByStatus = (status: ApplicationStatus) => {
