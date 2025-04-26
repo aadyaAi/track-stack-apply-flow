@@ -7,6 +7,17 @@ export interface TimelineEvent {
   description: string;
 }
 
+export interface Contact {
+  id: string;
+  name: string;
+  role: string;
+  email?: string;
+  phone?: string;
+  linkedIn?: string;
+  notes?: string;
+  lastContactDate?: string;
+}
+
 export interface JobApplication {
   id: string;
   companyName: string;
@@ -24,4 +35,7 @@ export interface JobApplication {
   timeline: TimelineEvent[];
   lastUpdated: string;
   priority?: boolean;
+  contacts: Contact[];
+  companyLinkedIn?: string;
+  lastCompanyUpdate?: string;
 }
