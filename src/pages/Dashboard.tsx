@@ -59,6 +59,9 @@ const Dashboard: React.FC = () => {
         <StatusChart applications={applications} />
         <RecentApplications applications={applications} />
       </div>
+      <div className="mt-4">
+        <ApplicationTimeline applications={applications} />
+      </div>
     </div>
   );
 };
