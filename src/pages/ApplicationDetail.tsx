@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useApplications } from '@/context/ApplicationContext';
@@ -74,8 +73,10 @@ const ApplicationDetail: React.FC = () => {
   };
 
   const handleFileUpload = (type: 'resume' | 'coverLetter', e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(`Handling ${type} file upload`);
     const file = e.target.files?.[0];
     if (file && application) {
+      console.log(`Selected file: ${file.name}`);
       addAttachment(application.id, type, file);
     }
     // Reset the input value so the same file can be selected again if removed
@@ -320,7 +321,12 @@ const ApplicationDetail: React.FC = () => {
                   <Button 
                     variant="outline" 
                     className="flex items-center w-full justify-start"
-                    onClick={() => resumeInputRef.current?.click()}
+                    onClick={() => {
+                      console.log("Resume button clicked");
+                      if (resumeInputRef.current) {
+                        resumeInputRef.current.click();
+                      }
+                    }}
                   >
                     <Paperclip className="h-4 w-4 mr-2" />
                     <span>Add resume</span>
@@ -364,7 +370,12 @@ const ApplicationDetail: React.FC = () => {
                   <Button 
                     variant="outline" 
                     className="flex items-center w-full justify-start"
-                    onClick={() => coverLetterInputRef.current?.click()}
+                    onClick={() => {
+                      console.log("Cover letter button clicked");
+                      if (coverLetterInputRef.current) {
+                        coverLetterInputRef.current.click();
+                      }
+                    }}
                   >
                     <Paperclip className="h-4 w-4 mr-2" />
                     <span>Add cover letter</span>

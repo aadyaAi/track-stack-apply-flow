@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { JobApplication, ApplicationStatus, TimelineEvent } from '../types';
 import { toast } from '@/hooks/use-toast';
@@ -23,7 +22,6 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     const loadSavedData = () => {
       const savedApplications = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -47,7 +45,6 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     loadSavedData();
   }, []);
 
-  // Save data to localStorage whenever it changes
   useEffect(() => {
     if (isInitialized) {
       console.log('Saving applications to localStorage:', applications);
@@ -158,12 +155,14 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     });
   };
 
-  // New functions for handling attachments
   const addAttachment = (applicationId: string, type: 'resume' | 'coverLetter', file: File) => {
+    console.log(`Adding ${type} attachment for application ${applicationId}`);
+    
     const reader = new FileReader();
     
     reader.onload = (event) => {
       const fileDataUrl = event.target?.result as string;
+      console.log(`File converted to data URL`);
       
       setApplications(prev => 
         prev.map(app => {
@@ -190,7 +189,8 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
       });
     };
     
-    reader.onerror = () => {
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
       toast({
         title: "Error",
         description: "Failed to read the file.",
@@ -198,10 +198,13 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
       });
     };
     
+    console.log("Starting file read as data URL");
     reader.readAsDataURL(file);
   };
 
   const removeAttachment = (applicationId: string, type: 'resume' | 'coverLetter') => {
+    console.log(`Removing ${type} attachment for application ${applicationId}`);
+    
     setApplications(prev => 
       prev.map(app => {
         if (app.id === applicationId) {
