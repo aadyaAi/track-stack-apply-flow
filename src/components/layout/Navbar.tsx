@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Plus, Menu, X } from 'lucide-react';
+import { Search, Plus, Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/context/ThemeContext';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -41,6 +42,14 @@ const Navbar: React.FC = () => {
           
           {/* Right side buttons */}
           <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="mr-2"
+            >
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
             <Button asChild className="hidden md:flex">
               <Link to="/add-application" className="flex items-center">
                 <Plus className="h-4 w-4 mr-2" />

@@ -10,6 +10,7 @@ import AddApplication from "./pages/AddApplication";
 import ApplicationDetail from "./pages/ApplicationDetail";
 import Jobs from "./pages/Jobs";
 import { ApplicationProvider } from "./context/ApplicationContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/layout/Navbar";
 
 const queryClient = new QueryClient();
@@ -17,7 +18,8 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <ApplicationProvider>
+      <ThemeProvider defaultTheme="light">
+        <ApplicationProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -46,6 +48,7 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </ApplicationProvider>
+      </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
