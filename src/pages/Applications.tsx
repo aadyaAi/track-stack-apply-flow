@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import { useApplications } from '@/context/ApplicationContext';
 import ApplicationCard from '@/components/applications/ApplicationCard';
+import KanbanBoard from '@/components/applications/KanbanBoard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Filter } from 'lucide-react';
+import { Plus, Search, Filter, LayoutGrid, Columns } from 'lucide-react';
 import { ApplicationStatus } from '@/types';
 import {
   DropdownMenu,
@@ -18,6 +19,7 @@ const Applications: React.FC = () => {
   const { applications } = useApplications();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState<ApplicationStatus[]>([]);
+  const [viewType, setViewType] = useState<'grid' | 'kanban'>('grid');
   
   // Filter applications based on search term and selected statuses
   const filteredApplications = applications.filter(app => {
@@ -81,9 +83,28 @@ const Applications: React.FC = () => {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <div className="flex gap-2">
+          <Button
+            variant={viewType === 'grid' ? 'default' : 'outline'}
+            size="icon"
+            onClick={() => setViewType('grid')}
+          >
+            <LayoutGrid className="h-4 w-4" />
+          </Button>
+          <Button
+            variant={viewType === 'kanban' ? 'default' : 'outline'}
+            size="icon"
+            onClick={() => setViewType('kanban')}
+          >
+            <Columns className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       
-      {filteredApplications.length > 0 ? (
+      {viewType === 'kanban' ? (
+        <KanbanBoard />
+      ) : filteredApplications.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredApplications.map(application => (
             <ApplicationCard key={application.id} application={application} />

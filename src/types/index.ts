@@ -23,4 +23,5 @@ export interface JobApplication {
   tags: string[];
   timeline: TimelineEvent[];
   lastUpdated: string;
+  priority?: boolean;
 }
