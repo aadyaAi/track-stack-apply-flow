@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useApplications } from '@/context/ApplicationContext';
 import ApplicationCard from '@/components/applications/ApplicationCard';
@@ -22,7 +21,6 @@ const Applications: React.FC = () => {
   const [selectedStatuses, setSelectedStatuses] = useState<ApplicationStatus[]>([]);
   const [viewType, setViewType] = useState<'grid' | 'kanban'>('grid');
   
-  // Filter applications based on search term and selected statuses
   const filteredApplications = applications.filter(app => {
     const matchesSearch = searchTerm === '' || 
       app.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -114,7 +112,7 @@ const Applications: React.FC = () => {
       </div>
       
       {viewType === 'kanban' ? (
-        <KanbanBoard />
+        <KanbanBoard applications={filteredApplications} />
       ) : filteredApplications.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredApplications.map(application => (

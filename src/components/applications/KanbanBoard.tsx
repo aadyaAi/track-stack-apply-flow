@@ -6,20 +6,24 @@ import { Flag, Briefcase, Building2, Calendar } from 'lucide-react';
 import { ApplicationStatus, JobApplication } from '@/types';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import Confetti from '@/components/animations/Confetti'; // <-- Import Confetti
+import Confetti from '@/components/animations/Confetti';
 
-const KanbanBoard: React.FC = () => {
-  const { applications, updateApplication } = useApplications();
-  const [showConfetti, setShowConfetti] = useState(false); // <-- Confetti state
+interface KanbanBoardProps {
+  applications: JobApplication[];
+}
+
+const KanbanBoard: React.FC<KanbanBoardProps> = ({ applications }) => {
+  const { updateApplication } = useApplications();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const statuses: ApplicationStatus[] = ['Applied', 'Interviewing', 'Offer', 'Rejected', 'Ghosted'];
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
-    
+
     const { draggableId, destination } = result;
     const newStatus = destination.droppableId as ApplicationStatus;
-    
+
     updateApplication(draggableId, { status: newStatus });
 
     // Show confetti when status changes to Offer
