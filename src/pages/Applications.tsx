@@ -6,7 +6,8 @@ import KanbanBoard from '@/components/applications/KanbanBoard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Filter, LayoutGrid, Columns } from 'lucide-react';
+import { Plus, Search, Filter, LayoutGrid, Columns, Download } from 'lucide-react';
+import { exportToCSV } from '@/utils/export-utils';
 import { ApplicationStatus } from '@/types';
 import {
   DropdownMenu,
@@ -40,6 +41,16 @@ const Applications: React.FC = () => {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">Applications</h1>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => exportToCSV(applications)}
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </Button>
+        </div>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4">
