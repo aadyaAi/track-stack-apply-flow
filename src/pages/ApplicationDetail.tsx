@@ -271,17 +271,20 @@ const ApplicationDetail: React.FC = () => {
             </CardHeader>
             <CardContent>
               {application.timeline.length > 0 ? (
-                <div className="space-y-1">
-                  {[...application.timeline]
-                    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                    .map((event) => (
-                      <TimelineItem 
-                        key={event.id} 
-                        event={event} 
-                        applicationId={application.id} 
-                      />
-                    ))}
-                </div>
+                <>
+                  <TimelineVisualization events={application.timeline} />
+                  <div className="space-y-1 mt-6">
+                    {[...application.timeline]
+                      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                      .map((event) => (
+                        <TimelineItem 
+                          key={event.id} 
+                          event={event} 
+                          applicationId={application.id} 
+                        />
+                      ))}
+                  </div>
+                </>
               ) : (
                 <p className="text-gray-500">No timeline events yet.</p>
               )}
