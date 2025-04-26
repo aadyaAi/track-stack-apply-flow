@@ -26,47 +26,51 @@ const statuses: ApplicationStatus[] = [
   'Ghosted'
 ];
 
-const Confetti = () => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 pointer-events-none z-50"
-    style={{
-      background: 'radial-gradient(circle, transparent 20%, black 20%, black 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, black 20%, black 80%, transparent 80%, transparent) 50px 50px, linear-gradient(#A7D129 8px, transparent 8px) 0 -4px, linear-gradient(90deg, #A7D129 8px, transparent 8px) -4px 0'
-    }}
-  >
-    {Array.from({ length: 50 }).map((_, i) => (
+const Confetti = () => {
+  const colors = ["#22c55e", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"];
+  return (
+    <motion.div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+      {Array.from({ length: 100 }).map((_, i) => {
+        const angle = (360 / 50) * (i % 50);
+        return (
+          <motion.div
+            key={i}
+            initial={{
+              x: 0,
+              y: 0,
+              scale: 0,
+              rotate: 0,
+            }}
+            animate={{
+              x: `${Math.cos(angle * (Math.PI / 180)) * (Math.random() * 400 + 100)}px`,
+              y: `${Math.sin(angle * (Math.PI / 180)) * (Math.random() * 400 + 100)}px`,
+              scale: Math.random() * 1 + 0.5,
+              rotate: Math.random() * 360,
+            }}
+            transition={{
+              duration: 1.5,
+              ease: [0.23, 1, 0.32, 1],
+              delay: Math.random() * 0.2,
+            }}
+            className="absolute w-3 h-3 rounded-full"
+            style={{
+              backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+              boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+            }}
+          />
+        );
+      })}
       <motion.div
-        key={i}
-        className="absolute"
-        initial={{
-          top: "50%",
-          left: "50%",
-          scale: 0,
-          opacity: 1
-        }}
-        animate={{
-          top: Math.random() * 100 + "%",
-          left: Math.random() * 100 + "%",
-          scale: 1,
-          opacity: 0
-        }}
-        transition={{
-          duration: 1.5,
-          delay: Math.random() * 0.2,
-          repeat: 2
-        }}
-        style={{
-          width: "10px",
-          height: "10px",
-          borderRadius: "50%",
-          background: ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"][Math.floor(Math.random() * 5)]
-        }}
-      />
-    ))}
-  </motion.div>
-);
+        initial={{ scale: 0, rotate: -180 }}
+        animate={{ scale: 1.5, rotate: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-6xl"
+      >
+        🎉
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange }) => {
   const [showConfetti, setShowConfetti] = React.useState(false);
