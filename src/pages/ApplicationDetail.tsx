@@ -7,6 +7,7 @@ import { formatDate } from '@/utils/format-date';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import TimelineItem from '@/components/applications/TimelineItem';
+import TimelineVisualization from '@/components/applications/TimelineVisualization';
 import AddEventForm from '@/components/applications/AddEventForm';
 import StatusSelector from '@/components/applications/StatusSelector';
 import { ArrowLeft, Link as LinkIcon, Calendar, Paperclip, Edit, Trash } from 'lucide-react';
