@@ -39,12 +39,12 @@ const KanbanBoard: React.FC = () => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="flex gap-6 overflow-x-auto p-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6 overflow-x-auto">
         {statuses.map(status => (
-          <div key={status} className="flex-shrink-0 w-80">
-            <div className={cn("px-4 py-2 rounded-t-lg font-semibold", getStatusColor(status))}>
-              <span>{status}</span>
-              <span className="ml-2 px-2 py-1 bg-white bg-opacity-30 rounded-full text-sm">
+          <div key={status} className="flex-shrink-0 w-full sm:w-72 md:w-80">
+            <div className={cn("px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center justify-between", getStatusColor(status))}>
+              <span className="truncate">{status}</span>
+              <span className="ml-2 px-2 py-1 bg-white bg-opacity-30 rounded-full text-xs sm:text-sm flex-shrink-0">
                 {getApplicationsByStatus(status).length}
               </span>
             </div>
@@ -54,7 +54,7 @@ const KanbanBoard: React.FC = () => {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                   className={cn(
-                    "bg-gray-50 rounded-b-lg p-3 min-h-[600px] transition-colors duration-200",
+                    "bg-gray-50 rounded-b-lg p-2 sm:p-3 min-h-[200px] sm:min-h-[600px] transition-colors duration-200",
                     snapshot.isDraggingOver && "bg-gray-100"
                   )}
                 >
