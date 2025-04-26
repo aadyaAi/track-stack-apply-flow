@@ -1,10 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useApplications } from '@/context/ApplicationContext';
 import { Card } from '@/components/ui/card';
-import { Flag } from 'lucide-react';
+import { Flag, Briefcase, Building2, Calendar } from 'lucide-react';
 import { ApplicationStatus, JobApplication } from '@/types';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const KanbanBoard: React.FC = () => {
   const { applications, updateApplication } = useApplications();
@@ -24,36 +26,69 @@ const KanbanBoard: React.FC = () => {
     return applications.filter(app => app.status === status);
   };
 
+  const getStatusColor = (status: ApplicationStatus) => {
+    const colors = {
+      'Applied': 'bg-blue-100 text-blue-800',
+      'Interviewing': 'bg-purple-100 text-purple-800',
+      'Offer': 'bg-green-100 text-green-800',
+      'Rejected': 'bg-red-100 text-red-800',
+      'Ghosted': 'bg-gray-100 text-gray-800'
+    };
+    return colors[status];
+  };
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="flex gap-4 overflow-x-auto p-4">
+      <div className="flex gap-6 overflow-x-auto p-6">
         {statuses.map(status => (
           <div key={status} className="flex-shrink-0 w-80">
-            <h3 className="font-semibold mb-4">{status}</h3>
+            <div className={cn("px-4 py-2 rounded-t-lg font-semibold", getStatusColor(status))}>
+              <span>{status}</span>
+              <span className="ml-2 px-2 py-1 bg-white bg-opacity-30 rounded-full text-sm">
+                {getApplicationsByStatus(status).length}
+              </span>
+            </div>
             <Droppable droppableId={status}>
-              {(provided) => (
+              {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="bg-gray-50 rounded-lg p-2 min-h-[500px]"
+                  className={cn(
+                    "bg-gray-50 rounded-b-lg p-3 min-h-[600px] transition-colors duration-200",
+                    snapshot.isDraggingOver && "bg-gray-100"
+                  )}
                 >
                   {getApplicationsByStatus(status).map((app, index) => (
                     <Draggable key={app.id} draggableId={app.id} index={index}>
-                      {(provided) => (
+                      {(provided, snapshot) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
+                          className={cn(
+                            "transform transition-transform duration-200",
+                            snapshot.isDragging && "rotate-2 scale-105"
+                          )}
                         >
-                          <Card className="mb-2 p-3">
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <h4 className="font-medium">{app.companyName}</h4>
-                                <p className="text-sm text-gray-500">{app.roleName}</p>
+                          <Card className="mb-3 p-4 hover:shadow-md transition-shadow duration-200">
+                            <div className="flex justify-between items-start mb-2">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2">
+                                  <Building2 className="h-4 w-4 text-gray-500" />
+                                  <h4 className="font-medium truncate">{app.companyName}</h4>
+                                </div>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <Briefcase className="h-4 w-4 text-gray-500" />
+                                  <p className="text-sm text-gray-600 truncate">{app.roleName}</p>
+                                </div>
                               </div>
                               {app.priority && (
-                                <Flag className="h-4 w-4 text-red-500" />
+                                <Flag className="h-5 w-5 text-red-500 flex-shrink-0" />
                               )}
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                              <Calendar className="h-3 w-3" />
+                              <span>{format(new Date(app.applicationDate), 'MMM d, yyyy')}</span>
                             </div>
                           </Card>
                         </div>
