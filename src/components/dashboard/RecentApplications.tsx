@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { JobApplication } from '@/types';
@@ -25,14 +24,17 @@ const RecentApplications: React.FC<RecentApplicationsProps> = ({ applications })
         <div className="space-y-4">
           {sortedApplications.length > 0 ? (
             sortedApplications.map(application => (
-              <div key={application.id} className="flex items-center">
+              <div
+                key={application.id}
+                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 p-2 rounded-md hover:bg-muted transition"
+              >
                 <div className="flex-1 space-y-1">
                   <Link to={`/application/${application.id}`} className="hover:underline">
                     <p className="text-sm font-medium leading-none">{application.companyName}</p>
                   </Link>
                   <p className="text-sm text-muted-foreground">{application.roleName}</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
                   <div className={`w-3 h-3 rounded-full ${getStatusColor(application.status)}`} />
                   <span className="text-xs text-muted-foreground">{application.status}</span>
                   <span className="text-xs text-muted-foreground">{formatDistanceToNow(application.lastUpdated)}</span>
@@ -40,7 +42,9 @@ const RecentApplications: React.FC<RecentApplicationsProps> = ({ applications })
               </div>
             ))
           ) : (
-            <p className="text-sm text-muted-foreground">No applications yet. Start by adding your first job application.</p>
+            <p className="text-sm text-muted-foreground">
+              No applications yet. Start by adding your first job application.
+            </p>
           )}
         </div>
       </CardContent>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useApplications } from '@/context/ApplicationContext';
 import StatCard from '@/components/dashboard/StatCard';
@@ -23,12 +22,12 @@ const Dashboard: React.FC = () => {
   ).length;
   
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
       </div>
       
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <StatCard 
           title="Total Applications" 
           value={totalApplications} 
@@ -55,9 +54,13 @@ const Dashboard: React.FC = () => {
         />
       </div>
       
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-5">
-        <StatusChart applications={applications} />
-        <RecentApplications applications={applications} />
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <StatusChart applications={applications} />
+        </div>
+        <div className="lg:col-span-2">
+          <RecentApplications applications={applications} />
+        </div>
       </div>
     </div>
   );
