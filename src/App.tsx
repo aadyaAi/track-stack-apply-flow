@@ -14,6 +14,8 @@ import ExploreJobs from './pages/ExploreJobs'; // Added import
 
 const queryClient = new QueryClient();
 
+import Dashboard from './pages/Dashboard';
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -23,11 +25,11 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />}>
-              <Route index element={<Dashboard />} /> {/* Assuming Dashboard exists */}
+              <Route index element={<Dashboard />} />
               <Route path="applications" element={<Applications />} />
               <Route path="applications/add" element={<AddApplication />} />
               <Route path="applications/:id" element={<ApplicationDetail />} />
-              <Route path="explore" element={<ExploreJobs />} /> {/* Added ExploreJobs route */}
+              <Route path="explore" element={<ExploreJobs />} />
               <Route path="*" element={<NotFound />} />
             </Route>
             {/* <Route path="/applications" element={
