@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { JobApplication, ApplicationStatus, TimelineEvent } from '../types';
 import { toast } from '@/hooks/use-toast';
@@ -10,6 +11,8 @@ interface ApplicationContextType {
   addTimelineEvent: (applicationId: string, event: Omit<TimelineEvent, 'id'>) => void;
   deleteTimelineEvent: (applicationId: string, eventId: string) => void;
   updateStatus: (id: string, status: ApplicationStatus) => void;
+  addAttachment: (applicationId: string, type: 'resume' | 'coverLetter', file: File) => void;
+  removeAttachment: (applicationId: string, type: 'resume' | 'coverLetter') => void;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(undefined);
@@ -155,6 +158,75 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     });
   };
 
+  // New functions for handling attachments
+  const addAttachment = (applicationId: string, type: 'resume' | 'coverLetter', file: File) => {
+    const reader = new FileReader();
+    
+    reader.onload = (event) => {
+      const fileDataUrl = event.target?.result as string;
+      
+      setApplications(prev => 
+        prev.map(app => {
+          if (app.id === applicationId) {
+            const updatedApp = { ...app, lastUpdated: new Date().toISOString() };
+            
+            if (type === 'resume') {
+              updatedApp.resumeUrl = fileDataUrl;
+              updatedApp.resumeName = file.name;
+            } else {
+              updatedApp.coverLetterUrl = fileDataUrl;
+              updatedApp.coverLetterName = file.name;
+            }
+            
+            return updatedApp;
+          }
+          return app;
+        })
+      );
+      
+      toast({
+        title: "Attachment Added",
+        description: `${type === 'resume' ? 'Resume' : 'Cover letter'} has been attached.`
+      });
+    };
+    
+    reader.onerror = () => {
+      toast({
+        title: "Error",
+        description: "Failed to read the file.",
+        variant: "destructive"
+      });
+    };
+    
+    reader.readAsDataURL(file);
+  };
+
+  const removeAttachment = (applicationId: string, type: 'resume' | 'coverLetter') => {
+    setApplications(prev => 
+      prev.map(app => {
+        if (app.id === applicationId) {
+          const updatedApp = { ...app, lastUpdated: new Date().toISOString() };
+          
+          if (type === 'resume') {
+            updatedApp.resumeUrl = undefined;
+            updatedApp.resumeName = undefined;
+          } else {
+            updatedApp.coverLetterUrl = undefined;
+            updatedApp.coverLetterName = undefined;
+          }
+          
+          return updatedApp;
+        }
+        return app;
+      })
+    );
+    
+    toast({
+      title: "Attachment Removed",
+      description: `${type === 'resume' ? 'Resume' : 'Cover letter'} has been removed.`
+    });
+  };
+
   return (
     <ApplicationContext.Provider 
       value={{
@@ -164,7 +236,9 @@ export const ApplicationProvider: React.FC<{ children: React.ReactNode }> = ({ c
         deleteApplication,
         addTimelineEvent,
         deleteTimelineEvent,
-        updateStatus
+        updateStatus,
+        addAttachment,
+        removeAttachment
       }}
     >
       {children}

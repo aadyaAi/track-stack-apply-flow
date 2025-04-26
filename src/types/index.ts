@@ -18,7 +18,9 @@ export interface JobApplication {
   jobDescription?: string;
   jobPostUrl?: string;
   resumeUrl?: string;
+  resumeName?: string;
   coverLetterUrl?: string;
+  coverLetterName?: string;
   notes?: string;
   tags: string[];
   timeline: TimelineEvent[];
