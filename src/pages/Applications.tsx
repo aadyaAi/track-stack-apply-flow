@@ -19,7 +19,7 @@ const Applications: React.FC = () => {
   const { applications } = useApplications();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState<ApplicationStatus[]>([]);
-  const [viewType, setViewType] = useState<'grid' | 'kanban'>('grid');
+  const [viewType, setViewType] = useState<'grid' | 'kanban'>('kanban');
   
   const filteredApplications = applications.filter(app => {
     const matchesSearch = searchTerm === '' || 

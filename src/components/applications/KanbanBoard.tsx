@@ -7,6 +7,7 @@ import { ApplicationStatus, JobApplication } from '@/types';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import Confetti from '@/components/animations/Confetti';
+import { Link } from 'react-router-dom';
 
 interface KanbanBoardProps {
   applications: JobApplication[];
@@ -83,27 +84,29 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ applications }) => {
                               snapshot.isDragging && "rotate-2 scale-105"
                             )}
                           >
-                            <Card className="mb-3 p-4 hover:shadow-md transition-shadow duration-200">
-                              <div className="flex justify-between items-start mb-2">
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2">
-                                    <Building2 className="h-4 w-4 text-gray-500" />
-                                    <h4 className="font-medium truncate">{app.companyName}</h4>
+                            <Link to={`/application/${app.id}`} className="block">
+                              <Card className="mb-3 p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="flex-1">
+                                    <div className="flex items-center gap-2">
+                                      <Building2 className="h-4 w-4 text-gray-500" />
+                                      <h4 className="font-medium truncate">{app.companyName}</h4>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-1">
+                                      <Briefcase className="h-4 w-4 text-gray-500" />
+                                      <p className="text-sm text-gray-600 truncate">{app.roleName}</p>
+                                    </div>
                                   </div>
-                                  <div className="flex items-center gap-2 mt-1">
-                                    <Briefcase className="h-4 w-4 text-gray-500" />
-                                    <p className="text-sm text-gray-600 truncate">{app.roleName}</p>
-                                  </div>
+                                  {app.priority && (
+                                    <Flag className="h-5 w-5 text-red-500 flex-shrink-0" />
+                                  )}
                                 </div>
-                                {app.priority && (
-                                  <Flag className="h-5 w-5 text-red-500 flex-shrink-0" />
-                                )}
-                              </div>
-                              <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <Calendar className="h-3 w-3" />
-                                <span>{format(new Date(app.applicationDate), 'MMM d, yyyy')}</span>
-                              </div>
-                            </Card>
+                                <div className="flex items-center gap-2 text-xs text-gray-500">
+                                  <Calendar className="h-3 w-3" />
+                                  <span>{format(new Date(app.applicationDate), 'MMM d, yyyy')}</span>
+                                </div>
+                              </Card>
+                            </Link>
                           </div>
                         )}
                       </Draggable>
