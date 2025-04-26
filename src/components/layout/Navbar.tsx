@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from '@/context/ThemeContext';
 
 const Navbar: React.FC = () => {
+  const { theme, setTheme } = useTheme();
   const location = useLocation();
   const path = location.pathname;
   const [isOpen, setIsOpen] = useState(false);
