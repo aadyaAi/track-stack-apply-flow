@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +12,14 @@ import { ApplicationProvider } from "./context/ApplicationContext";
 import Navbar from "./components/layout/Navbar";
 
 const queryClient = new QueryClient();
+
+const Analytics = () => (
+  <div>
+    <h1>Analytics Dashboard</h1>
+    {/* Placeholder for analytics charts and data */}
+  </div>
+);
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -41,6 +48,7 @@ const App = () => (
                 <ApplicationDetail />
               </div>
             } />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
