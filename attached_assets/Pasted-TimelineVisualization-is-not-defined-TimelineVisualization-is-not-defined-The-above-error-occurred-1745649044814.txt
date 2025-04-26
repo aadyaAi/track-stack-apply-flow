@@ -1,0 +1,38 @@
+TimelineVisualization is not defined
+TimelineVisualization is not defined
+The above error occurred in the <ApplicationDetail> component:
+
+    at ApplicationDetail (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/src/pages/ApplicationDetail.tsx:28:20)
+    at div
+    at RenderedRoute (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4069:5)
+    at Routes (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4508:5)
+    at Router (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4451:15)
+    at BrowserRouter (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:5196:5)
+    at ApplicationProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/src/context/ApplicationContext.tsx:15:39)
+    at Provider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/chunk-2VFJLK44.js?v=fd2c71b6:48:15)
+    at TooltipProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=fd2c71b6:54:5)
+    at QueryClientProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/@tanstack_react-query.js?v=fd2c71b6:2794:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+at ApplicationDetail (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/src/pages/ApplicationDetail.tsx:28:20)
+at div
+at RenderedRoute (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4069:5)
+at Routes (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4508:5)
+at Router (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:4451:15)
+at BrowserRouter (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=fd2c71b6:5196:5)
+at ApplicationProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/src/context/ApplicationContext.tsx:15:39)
+at Provider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/chunk-2VFJLK44.js?v=fd2c71b6:48:15)
+at TooltipProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=fd2c71b6:54:5)
+at QueryClientProvider (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/node_modules/.vite/deps/@tanstack_react-query.js?v=fd2c71b6:2794:3)
+at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+at t.value (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://74b26bb8-6c47-4680-93b8-4932a29556cf-00-2cfie7x4jdgkm.pike.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+TimelineVisualization is not defined
