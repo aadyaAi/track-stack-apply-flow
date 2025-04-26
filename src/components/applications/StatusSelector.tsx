@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { ApplicationStatus } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Check, ChevronDown, PartyPopper } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import Confetti from '@/components/animations/Confetti'; // <-- Import the reusable Confetti
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,64 +27,6 @@ const statuses: ApplicationStatus[] = [
   'Ghosted'
 ];
 
-const Confetti = () => {
-  const colors = ["#22c55e", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"];
-  return (
-    <motion.div 
-      className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {Array.from({ length: 100 }).map((_, i) => {
-        const angle = (360 / 50) * (i % 50);
-        return (
-          <motion.div
-            key={i}
-            initial={{
-              x: 0,
-              y: 0,
-              scale: 0,
-              rotate: 0,
-              opacity: 1
-            }}
-            animate={{
-              x: `${Math.cos(angle * (Math.PI / 180)) * (Math.random() * 400 + 100)}px`,
-              y: `${Math.sin(angle * (Math.PI / 180)) * (Math.random() * 400 + 100)}px`,
-              scale: Math.random() * 1 + 0.5,
-              rotate: Math.random() * 360,
-              opacity: 0
-            }}
-            transition={{
-              duration: 2,
-              ease: [0.23, 1, 0.32, 1],
-              delay: Math.random() * 0.2,
-              opacity: { duration: 1.5, delay: 0.5 }
-            }}
-            className="absolute w-3 h-3 rounded-full"
-            style={{
-              backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-              boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-            }}
-          />
-        );
-      })}
-      <motion.div
-        initial={{ scale: 0, rotate: -180, opacity: 1 }}
-        animate={{ scale: 1.5, rotate: 0, opacity: 0 }}
-        transition={{ 
-          duration: 1,
-          opacity: { duration: 0.5, delay: 1 }
-        }}
-        className="text-6xl"
-      >
-        🎉
-      </motion.div>
-    </motion.div>
-  );
-};
-
 const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange, showConfetti = false }) => {
   const [localShowConfetti, setLocalShowConfetti] = React.useState(false);
 
@@ -99,7 +41,7 @@ const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange
   return (
     <>
       <AnimatePresence>
-        {localShowConfetti && <Confetti />}
+        {localShowConfetti && <Confetti show={localShowConfetti} duration={2000} />}
       </AnimatePresence>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
