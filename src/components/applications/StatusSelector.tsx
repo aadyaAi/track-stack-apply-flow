@@ -84,13 +84,13 @@ const Confetti = () => {
   );
 };
 
-const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange }) => {
-  const [showConfetti, setShowConfetti] = React.useState(false);
+const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange, showConfetti = false }) => {
+  const [localShowConfetti, setLocalShowConfetti] = React.useState(false);
 
   const handleStatusChange = (status: ApplicationStatus) => {
-    if (status === 'Offer') {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4000);
+    if (status === 'Offer' && showConfetti) {
+      setLocalShowConfetti(true);
+      setTimeout(() => setLocalShowConfetti(false), 4000);
     }
     onChange(status);
   };
@@ -98,7 +98,7 @@ const StatusSelector: React.FC<StatusSelectorProps> = ({ currentStatus, onChange
   return (
     <>
       <AnimatePresence>
-        {showConfetti && <Confetti />}
+        {localShowConfetti && <Confetti />}
       </AnimatePresence>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

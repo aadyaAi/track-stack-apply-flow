@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useApplications } from '@/context/ApplicationContext';
@@ -32,7 +31,7 @@ const ApplicationDetail: React.FC = () => {
   const [isEditingNotes, setIsEditingNotes] = useState(false);
   const [notes, setNotes] = useState('');
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  
+
   const application = applications.find(app => app.id === id);
 
   React.useEffect(() => {
@@ -40,7 +39,7 @@ const ApplicationDetail: React.FC = () => {
       setNotes(application.notes);
     }
   }, [application?.notes]);
-  
+
   if (!application) {
     return (
       <div className="p-6 text-center">
@@ -52,36 +51,37 @@ const ApplicationDetail: React.FC = () => {
       </div>
     );
   }
-  
+
   const handleSaveNotes = () => {
     updateApplication(application.id, { notes });
     setIsEditingNotes(false);
   };
-  
+
   const handleDeleteApplication = () => {
     deleteApplication(application.id);
     navigate('/applications');
   };
-  
+
   return (
     <div className="p-6">
       <div className="mb-6">
         <Button variant="outline" onClick={() => navigate('/applications')} className="mb-4">
           <ArrowLeft className="h-4 w-4 mr-2" /> Back to Applications
         </Button>
-        
+
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="text-2xl font-bold">{application.companyName}</h1>
             <p className="text-gray-600">{application.roleName}</p>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <StatusSelector 
               currentStatus={application.status} 
               onChange={(status) => updateStatus(application.id, status)} 
+              showConfetti={true}
             />
-            
+
             <Button 
               variant="outline" 
               size="icon"
@@ -89,7 +89,7 @@ const ApplicationDetail: React.FC = () => {
             >
               <Edit className="h-4 w-4" />
             </Button>
-            
+
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -115,7 +115,7 @@ const ApplicationDetail: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="grid gap-6 md:grid-cols-3">
         <div className="md:col-span-2 space-y-6">
           <Card>
@@ -174,7 +174,7 @@ const ApplicationDetail: React.FC = () => {
               </dl>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
@@ -191,7 +191,7 @@ const ApplicationDetail: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
@@ -231,7 +231,7 @@ const ApplicationDetail: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-        
+
         <div className="space-y-6">
           <Card>
             <CardHeader>
@@ -252,7 +252,7 @@ const ApplicationDetail: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
@@ -288,11 +288,11 @@ const ApplicationDetail: React.FC = () => {
               )}
             </CardContent>
           </Card>
-          
+
           <InterviewPrepSection companyName={application.companyName} />
         </div>
       </div>
-      
+
       <UpdateApplicationDialog
         application={application}
         isOpen={isEditDialogOpen}
