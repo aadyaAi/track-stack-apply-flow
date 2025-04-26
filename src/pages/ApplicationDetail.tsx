@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useApplications } from '@/context/ApplicationContext';
@@ -33,6 +34,12 @@ const ApplicationDetail: React.FC = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   
   const application = applications.find(app => app.id === id);
+
+  React.useEffect(() => {
+    if (application?.notes) {
+      setNotes(application.notes);
+    }
+  }, [application?.notes]);
   
   if (!application) {
     return (
@@ -45,12 +52,6 @@ const ApplicationDetail: React.FC = () => {
       </div>
     );
   }
-  
-  React.useEffect(() => {
-    if (application?.notes) {
-      setNotes(application.notes);
-    }
-  }, [application?.notes]);
   
   const handleSaveNotes = () => {
     updateApplication(application.id, { notes });
